@@ -4,10 +4,8 @@ import com.orientechnologies.orient.core.db.ODatabaseSession;
 import com.orientechnologies.orient.core.id.ORID;
 import com.orientechnologies.orient.core.record.OElement;
 import com.orientechnologies.orient.core.record.OVertex;
+import com.orientechnologies.orient.core.sql.executor.OResult;
 import com.orientechnologies.orient.core.sql.executor.OResultSet;
-import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
-
-import java.util.List;
 
     public class CRUDPerson {
     private ODatabaseSession db;
@@ -23,10 +21,14 @@ import java.util.List;
         person.save();
     }
 
-    public List<OElement> readAll() {
+    public void readAll() {
         String query = "SELECT FROM Person";
-        OResultSet result = db.query(new OSQLSynchQuery<>(query));
-        return result.toList();
+        OResultSet result = db.query(query);
+        while (result.hasNext()) {
+            OResult item = result.next();
+            System.out.println("person: " + item.getProperty("name"));
+        }
+        result.close();
     }
 
     public OElement readById(ORID rid) {
