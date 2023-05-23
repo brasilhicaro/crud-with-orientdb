@@ -12,7 +12,7 @@ import java.util.List;
     public class CRUDPerson {
     private ODatabaseSession db;
 
-    public CRUDExample(ODatabaseSession db) {
+    public CRUDPerson(ODatabaseSession db) {
         this.db = db;
     }
 
