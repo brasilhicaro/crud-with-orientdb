@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  orientdb:
+    image: orientdb:latest
+    container_name: orientdb
+    ports:
+      - 2480:2480
+      - 2424:2424
+    volumes:
+      - ./data:/orientdb/databases
+      - ./backup:/orientdb/backup
+      - ./config:/orientdb/config
+    environment:
+      - ORIENTDB_ROOT_PASSWORD=root
+      - ORIENTDB_DB_CREATE_DATABASES=database1, database2
+    command: ["/orientdb/bin/server.sh"]
+    restart: always
